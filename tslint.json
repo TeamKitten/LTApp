@@ -6,5 +6,14 @@
       "node_modules/**/*.ts",
       "coverage/lcov-report/*.js"
     ]
+  },
+  "rulesDirectory": ["tslint-plugin-prettier"],
+  "rules": {
+    "no-default-export": true,
+    "interface-name": false,
+    "ordered-imports": true,
+    "jsx-no-lambda": false,
+    "object-literal-sort-keys": false,
+    "prettier": true
   }
 }
