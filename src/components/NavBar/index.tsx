@@ -1,4 +1,5 @@
 import * as React from "react";
+import { RouteComponentProps, withRouter } from "react-router";
 import styled from "styled-components";
 import { NavBarIcon } from "../NavBarIcon";
 
@@ -15,8 +16,13 @@ const StyledFooter = styled.footer`
   align-items: center;
 `;
 
-export const NavBar = () => (
+export const NavBar = withRouter((props: RouteComponentProps) => (
   <StyledFooter>
-    <NavBarIcon title="Home" icon="home" />
+    <NavBarIcon
+      active={props.location.pathname === "/"}
+      title="Home"
+      icon="home"
+      onClick={() => props.history.replace("/")}
+    />
   </StyledFooter>
-);
+));

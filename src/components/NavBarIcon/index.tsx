@@ -3,6 +3,10 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import * as React from "react";
 import styled from "styled-components";
 
+interface IContainerProps {
+  active: boolean;
+}
+
 const Container = styled.div`
   display: flex;
   justify-content: center;
@@ -14,16 +18,23 @@ const Title = styled.b`
   font-weight: bold;
   font-size: 0.5rem;
   color: #333;
+  color: ${(props: IContainerProps) => (props.active ? "#008ffe" : "#333")};
 `;
 
 interface IProps {
   icon: IconProp;
   title: string;
+  active: boolean;
+  onClick: (event: React.MouseEvent<HTMLDivElement>) => void;
 }
 
 export const NavBarIcon = (props: IProps) => (
-  <Container>
-    <FontAwesomeIcon color="#333" size="lg" icon={props.icon} />
-    <Title>{props.title}</Title>
+  <Container onClick={props.onClick}>
+    <FontAwesomeIcon
+      color={props.active ? "#008ffe" : "#333"}
+      size="lg"
+      icon={props.icon}
+    />
+    <Title active={props.active}>{props.title}</Title>
   </Container>
 );
