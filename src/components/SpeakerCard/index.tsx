@@ -10,7 +10,7 @@ const Card = styled.div`
   background: #fff;
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16);
   width: 75vw;
-  height: 60vh;
+  height: 70vh;
   border-radius: 32px;
   background: ${(props: IStyledCardProps) => `url(${props.imageUrl})`};
   background-size: cover;
