@@ -18,7 +18,7 @@ interface IProps {
 export class Routes extends React.Component<IProps> {
   public render() {
     const SwitchWrapper = styled.div`
-      margin-top: 64px;
+      margin-top: 48px;
     `;
     return (
       <Router>

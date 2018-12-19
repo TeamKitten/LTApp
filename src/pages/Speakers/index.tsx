@@ -9,7 +9,7 @@ const Wrapper = styled.section`
 
 const SpeakerCardItem = styled.div`
   min-width: 100vw;
-  height: calc(100vh - 64px - 48px);
+  height: calc(100vh - 48px - 48px);
   display: flex;
   justify-content: center;
   align-items: center;

@@ -1,6 +1,7 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import * as React from "react";
 import styled from "styled-components";
+import { getEndStr, getStartStr } from "../../utils/date";
 
 interface IStyledCardProps {
   imageUrl: string;
@@ -59,17 +60,6 @@ const WithIconTextWrapper = styled.div`
 interface IProps {
   speaker: any;
 }
-
-const getStartStr = (start: string) => {
-  const date = new Date(start);
-  return `${date.getHours()}:${date.getMinutes()}`;
-};
-
-const getEndStr = (start: string, long: boolean) => {
-  const date = new Date(start);
-  date.setMinutes(long ? date.getMinutes() + 10 : date.getMinutes() + 5);
-  return `${date.getHours()}:${date.getMinutes()}`;
-};
 
 export const SpeakerCard = (props: IProps) => (
   <Card imageUrl={props.speaker.avatar.fields.file.url}>
