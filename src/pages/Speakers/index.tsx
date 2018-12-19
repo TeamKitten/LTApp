@@ -22,7 +22,10 @@ interface IProps {
 
 export const Speakers = (props: IProps) => (
   <Wrapper>
-    <ReactSwipe swipeOptions={{ continuous: false }}>
+    <ReactSwipe
+      key={props.speakers.length}
+      swipeOptions={{ continuous: false }}
+    >
       {props.speakers.map(item => (
         <SpeakerCardItem key={item.sys.id}>
           <SpeakerCard speaker={item.fields} />
