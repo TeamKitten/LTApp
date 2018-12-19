@@ -13,11 +13,10 @@ interface IProps {
 @observer
 export class HomeContainer extends React.Component<IProps> {
   public componentWillMount() {
-    this.props.commonStore.title = "Home";
-    this.props.commonStore.pathname = this.props.location.pathname;
+    this.props.commonStore.title = "ホーム";
   }
 
   public render() {
-    return <Home />;
+    return <Home commonState={this.props.commonStore} />;
   }
 }

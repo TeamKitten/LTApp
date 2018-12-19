@@ -20,7 +20,7 @@ export const NavBar = withRouter((props: RouteComponentProps) => (
   <StyledFooter>
     <NavBarIcon
       active={props.location.pathname === "/"}
-      title="Home"
+      title="ホーム"
       icon="home"
       onClick={() => props.history.replace("/")}
     />
