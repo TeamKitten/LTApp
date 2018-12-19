@@ -41,7 +41,11 @@ const Inner = styled.div`
 
 const Heading = styled.h1`
   font-weight: bold;
-  color: var(--brand);
+  background: var(--brand);
+  color: #fff;
+  padding: 8px;
+  box-shadow: 0 0 6px rgba(0, 143, 254, 0.25);
+  border-radius: 2px;
   margin-bottom: 8px;
 `;
 
