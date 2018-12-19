@@ -2,6 +2,7 @@ import * as React from "react";
 import * as ReactSwipe from "react-swipe";
 import styled from "styled-components";
 import { SpeakerCard } from "../../components/SpeakerCard";
+import { ISpeaker } from "../../models/Speaker";
 
 const Wrapper = styled.section`
   overflow: hidden;
@@ -17,7 +18,7 @@ const SpeakerCardItem = styled.div`
 `;
 
 interface IProps {
-  speakers: any[];
+  speakers: ISpeaker[];
 }
 
 export const Speakers = (props: IProps) => (

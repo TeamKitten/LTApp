@@ -1,13 +1,15 @@
+import { Entry } from "contentful";
 import * as React from "react";
 import { CurrentSession } from "src/components/CurrentSession";
 import { CountDown } from "../../components/Countdown";
+import { ISpeakerFields } from "../../models/Speaker";
 import { ICommonStore } from "../../stores/Common";
 import { IContentfulStore } from "../../stores/Contentful";
 
 interface ISpeakerOrCountdownProps {
   openDate: Date;
   closeDate: Date;
-  speakers: any[];
+  speakers: Array<Entry<ISpeakerFields>>;
 }
 
 const SpeakerOrCountDown = (props: ISpeakerOrCountdownProps) => {
