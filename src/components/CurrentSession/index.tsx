@@ -1,10 +1,11 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import * as React from "react";
 import styled from "styled-components";
+import { ISpeaker } from "../../models/Speaker";
 import { getEndStr, getStartStr } from "../../utils/date";
 
 interface IProps {
-  currentSession: any;
+  currentSession: ISpeaker;
 }
 
 interface IWrapperProps {

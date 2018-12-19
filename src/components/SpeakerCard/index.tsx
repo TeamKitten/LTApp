@@ -1,6 +1,7 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import * as React from "react";
 import styled from "styled-components";
+import { ISpeakerFields } from "../../models/Speaker";
 import { getEndStr, getStartStr } from "../../utils/date";
 
 interface IStyledCardProps {
@@ -58,7 +59,7 @@ const WithIconTextWrapper = styled.div`
 `;
 
 interface IProps {
-  speaker: any;
+  speaker: ISpeakerFields;
 }
 
 export const SpeakerCard = (props: IProps) => (
