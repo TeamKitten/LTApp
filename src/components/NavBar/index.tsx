@@ -24,5 +24,11 @@ export const NavBar = withRouter((props: RouteComponentProps) => (
       icon="home"
       onClick={() => props.history.replace("/")}
     />
+    <NavBarIcon
+      active={props.location.pathname === "/speakers"}
+      title="登壇者"
+      icon="users"
+      onClick={() => props.history.replace("/speakers")}
+    />
   </StyledFooter>
 ));

@@ -5,6 +5,7 @@ import styled from "styled-components";
 import { Header } from "./components/Header";
 import { NavBar } from "./components/NavBar";
 import { HomeContainer } from "./containers/Home";
+import { SpeakersContainer } from "./containers/Speakers";
 import { NoMatch } from "./pages/NoMatch";
 import { ICommonStore } from "./stores/Common";
 
@@ -26,6 +27,11 @@ export class Routes extends React.Component<IProps> {
           <SwitchWrapper>
             <Switch>
               <Route exact={true} path="/" component={HomeContainer} />
+              <Route
+                exact={true}
+                path="/speakers"
+                component={SpeakersContainer}
+              />
               <Route component={NoMatch} />
             </Switch>
           </SwitchWrapper>

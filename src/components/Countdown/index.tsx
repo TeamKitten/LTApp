@@ -4,7 +4,8 @@ import styled from "styled-components";
 const Wrapper = styled.div`
   background: #212121;
   color: #fff;
-  height: 240px;
+  height: calc(100vh - 64px - 48px);
+  text-align: center;
 
   background: #8360c3; /* fallback for old browsers */
   background: -webkit-linear-gradient(
@@ -35,7 +36,7 @@ const Timer = (props: IProps) => {
   const remaningDays = Math.ceil(diff / 86400000);
   return (
     <div>
-      <h1 style={{ marginBottom: "8px" }}>開催まであと</h1>
+      <h1 style={{ marginBottom: "8px" }}>KittenLT1開催まであと</h1>
       <TimerText>{remaningDays}日</TimerText>
     </div>
   );

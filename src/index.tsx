@@ -7,12 +7,22 @@ import { Routes } from "./Routes";
 import { CommonStore } from "./stores/Common";
 
 import { library } from "@fortawesome/fontawesome-svg-core";
-import { faHome } from "@fortawesome/free-solid-svg-icons";
+import {
+  faClock,
+  faHome,
+  faStopwatch,
+  faUsers
+} from "@fortawesome/free-solid-svg-icons";
+import { ContentfulStore } from "./stores/Contentful";
 
 library.add(faHome);
+library.add(faUsers);
+library.add(faClock);
+library.add(faStopwatch);
 
 const stores = {
-  commonStore: new CommonStore()
+  commonStore: new CommonStore(),
+  contentfulStore: new ContentfulStore()
 };
 
 ReactDOM.render(
