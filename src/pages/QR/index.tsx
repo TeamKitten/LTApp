@@ -96,7 +96,7 @@ const YourQR = (props: IProps) => (
     <YourQRHeading>
       {props.token ? JSON.parse(props.token).name : null}さんの参加証
     </YourQRHeading>
-    <QRCode value={props.token ? base64Encode(props.token) : ""} />
+    <QRCode size={250} value={props.token ? base64Encode(props.token) : ""} />
   </YourQRWrapper>
 );
 
