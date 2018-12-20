@@ -21,6 +21,7 @@ const Wrapper = styled.article`
   background-size: cover;
   background-attachment: fixed;
   background-position: center center;
+  background-repeat: no-repeat;
   box-shadow: 0 3px 6px rgba(46, 191, 145, 0.16);
   display: flex;
   justify-content: center;

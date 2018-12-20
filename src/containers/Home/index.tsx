@@ -24,8 +24,6 @@ export class HomeContainer extends React.Component<IProps> {
     if (!this.props.contentfulStore.speakers.length) {
       return null;
     }
-    // tslint:disable-next-line:no-console
-    console.log(JSON.stringify(this.props.contentfulStore.speakers[0]));
     return (
       <Home
         commonStore={this.props.commonStore}
