@@ -19,6 +19,17 @@ export class SpeakersContainer extends React.Component<IProps> {
   }
 
   public render() {
-    return <Speakers speakers={this.props.contentfulStore.speakers} />;
+    if (
+      !this.props.contentfulStore.sessions.length ||
+      !this.props.contentfulStore.participants.length
+    ) {
+      return null;
+    }
+    return (
+      <Speakers
+        participants={this.props.contentfulStore.participants}
+        sessions={this.props.contentfulStore.sessions}
+      />
+    );
   }
 }

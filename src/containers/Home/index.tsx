@@ -21,7 +21,10 @@ export class HomeContainer extends React.Component<IProps> {
   }
 
   public render() {
-    if (!this.props.contentfulStore.speakers.length) {
+    if (
+      !this.props.contentfulStore.sessions.length ||
+      !this.props.contentfulStore.participants.length
+    ) {
       return null;
     }
     return (
