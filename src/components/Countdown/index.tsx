@@ -12,18 +12,22 @@ const Wrapper = styled.div`
   flex-direction: column;
 `;
 
-const TimerText = styled.h1`
+const TimerText = styled.span`
+  display: block;
   font-size: 2.5rem;
   font-weight: bold;
+  margin-top: 8px;
 `;
 
 const Timer = (props: IProps) => {
-  const now = new Date();
-  const diff = Math.ceil((props.openDate.getTime() - now.getTime()) / 86400000);
+  const now = Date.now();
+  const diff = Math.ceil((props.openDate.getTime() - now) / 86400000);
   return (
     <div>
-      <h1 style={{ marginBottom: "8px" }}>KittenLT1開催まであと</h1>
-      <TimerText>{diff}日</TimerText>
+      <h1 id="remaning">
+        KittenLT1開催まであと
+        <TimerText>{diff}日</TimerText>
+      </h1>
     </div>
   );
 };
@@ -35,8 +39,10 @@ interface IProps {
 
 export const CountDown = (props: IProps) => (
   <Wrapper>
-    {props.closeDate.getTime() < new Date().getTime() ? (
-      <h1 style={{ fontWeight: "bold" }}>ご来場ありがとうございました！</h1>
+    {props.closeDate.getTime() < Date.now() ? (
+      <h1 id="greeting" style={{ fontWeight: "bold" }}>
+        ご来場ありがとうございました！
+      </h1>
     ) : (
       <Timer {...props} />
     )}

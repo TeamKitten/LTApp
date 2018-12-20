@@ -1,7 +1,7 @@
 import { Entry } from "contentful";
 import * as React from "react";
-import { CurrentSession } from "src/components/CurrentSession";
 import { CountDown } from "../../components/Countdown";
+import { CurrentSession } from "../../components/CurrentSession";
 import { ISpeakerFields } from "../../models/Speaker";
 import { ICommonStore } from "../../stores/Common";
 import { IContentfulStore } from "../../stores/Contentful";
@@ -13,17 +13,17 @@ interface ISpeakerOrCountdownProps {
 }
 
 const SpeakerOrCountDown = (props: ISpeakerOrCountdownProps) => {
-  const now = new Date();
+  const now = Date.now();
   const currentSession = props.speakers.filter(s => {
     const sessionEndDate = new Date(s.fields.time);
     const timeRange = s.fields.long ? 10 : 5;
     sessionEndDate.setMinutes(sessionEndDate.getMinutes() + timeRange);
-    const diff = sessionEndDate.getTime() - now.getTime();
+    const diff = sessionEndDate.getTime() - now;
     const min = Math.floor(diff / 60000);
     return min >= 0 && min <= timeRange;
   });
 
-  return now.getTime() < props.openDate.getTime() ? (
+  return now < props.openDate.getTime() || now > props.closeDate.getTime() ? (
     <CountDown openDate={props.openDate} closeDate={props.closeDate} />
   ) : currentSession.length ? (
     <CurrentSession currentSession={currentSession[0]} />
@@ -37,7 +37,7 @@ const SpeakerOrCountDown = (props: ISpeakerOrCountdownProps) => {
         height: "calc(100vh - 48px - 48px)"
       }}
     >
-      <h1>開催中のセッションはありません。</h1>
+      <h1 id="noSessions">開催中のセッションはありません。</h1>
     </div>
   );
 };

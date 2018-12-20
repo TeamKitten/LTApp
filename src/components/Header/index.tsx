@@ -27,6 +27,6 @@ interface Props {
 
 export const Header = (props: Props) => (
   <StyledHeader>
-    <Title>{props.title}</Title>
+    <Title id="title">{props.title}</Title>
   </StyledHeader>
 );
