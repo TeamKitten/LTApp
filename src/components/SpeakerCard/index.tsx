@@ -18,6 +18,7 @@ const Card = styled.div`
   background-size: cover;
   background-attachment: fixed;
   background-position: center center;
+  background-repeat: no-repeat;
   transition: box-shadow 0.25s;
   &:active {
     box-shadow: 0 3px 12px rgba(0, 0, 0, 0.25);
