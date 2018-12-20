@@ -65,18 +65,20 @@ interface IProps {
 export const SpeakerCard = (props: IProps) => (
   <Card imageUrl={props.speaker.avatar.fields.file.url}>
     <CardInner>
-      <Title>{props.speaker.title}</Title>
-      <SpeakerName>{props.speaker.speakerName}</SpeakerName>
+      <Title id="title">{props.speaker.title}</Title>
+      <SpeakerName id="speakerName">{props.speaker.speakerName}</SpeakerName>
       <WithIconTextWrapper>
         <FontAwesomeIcon icon="clock" />
-        <SpeakTime>
+        <SpeakTime id="speakTime">
           {getStartStr(props.speaker.time)}-
           {getEndStr(props.speaker.time, props.speaker.long)}
         </SpeakTime>
       </WithIconTextWrapper>
       <WithIconTextWrapper>
         <FontAwesomeIcon icon="stopwatch" />
-        <SpeakTime>{props.speaker.long ? "10min" : "5min"}</SpeakTime>
+        <SpeakTime id="speakDuration">
+          {props.speaker.long ? "10min" : "5min"}
+        </SpeakTime>
       </WithIconTextWrapper>
     </CardInner>
   </Card>

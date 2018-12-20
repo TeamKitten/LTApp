@@ -79,11 +79,13 @@ export const CurrentSession = (props: IProps) => (
   >
     <Inner>
       <Heading>現在登壇中</Heading>
-      <Title>{props.currentSession.fields.title}</Title>
-      <SpeakerName>{props.currentSession.fields.speakerName}</SpeakerName>
+      <Title id="title">{props.currentSession.fields.title}</Title>
+      <SpeakerName id="speakerName">
+        {props.currentSession.fields.speakerName}
+      </SpeakerName>
       <WithIconTextWrapper>
         <FontAwesomeIcon icon="clock" />
-        <SpeakTime>
+        <SpeakTime id="speakTime">
           {getStartStr(props.currentSession.fields.time)}-
           {getEndStr(
             props.currentSession.fields.time,
@@ -93,7 +95,7 @@ export const CurrentSession = (props: IProps) => (
       </WithIconTextWrapper>
       <WithIconTextWrapper>
         <FontAwesomeIcon icon="stopwatch" />
-        <SpeakTime>
+        <SpeakTime id="speakDuration">
           {props.currentSession.fields.long ? "10min" : "5min"}
         </SpeakTime>
       </WithIconTextWrapper>

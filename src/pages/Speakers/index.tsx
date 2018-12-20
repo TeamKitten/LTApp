@@ -28,7 +28,7 @@ export const Speakers = (props: IProps) => (
       swipeOptions={{ continuous: false }}
     >
       {props.speakers.map(item => (
-        <SpeakerCardItem key={item.sys.id}>
+        <SpeakerCardItem className="session" key={item.sys.id}>
           <SpeakerCard speaker={item.fields} />
         </SpeakerCardItem>
       ))}

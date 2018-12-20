@@ -1,32 +1,11 @@
-// import { library } from "@fortawesome/fontawesome-svg-core";
-// import { faClock, faStopwatch } from "@fortawesome/free-solid-svg-icons";
-import { mount } from "enzyme";
+import { shallow } from "enzyme";
 import * as React from "react";
-import { Home } from ".";
-import { CommonStore } from "../../stores/Common";
-import { ContentfulStore } from "../../stores/Contentful";
+import { SpeakerCard } from ".";
+import { ISpeaker } from "../../models/Speaker";
 
-describe("Home Page", () => {
-  it("開場している状態であと〜日が表示されない", () => {
-    const constantDate = new Date("2019/2/2 13:35");
-    Date.now = jest.fn(() => constantDate.getTime());
-
-    const commonStore = new CommonStore();
-    commonStore.openDate = new Date("2019/2/2 13:30");
-    const contentfulStore = new ContentfulStore();
-    const wrapper = mount(
-      <Home commonStore={commonStore} contentfulStore={contentfulStore} />
-    );
-    expect(wrapper.find("#noSessions").length).toBe(1);
-  });
-  /*
-  it("登壇している状態でセッションの情報が表示される", () => {
-    const constantDate = new Date("2019/2/2 13:35");
-    Date.now = jest.fn(() => constantDate.getTime());
-
-    const commonStore = new CommonStore();
-    commonStore.openDate = new Date("2019/2/2 13:30");
-    const session = JSON.parse(
+describe("SpeakerCard Component", () => {
+  it("セッションが正しく表示される", () => {
+    const session: ISpeaker = JSON.parse(
       `{
         "sys": {
           "space": {
@@ -105,17 +84,10 @@ describe("Home Page", () => {
         }
       }`
     );
-    const contentfulStore = new ContentfulStore();
-    contentfulStore.speakers = [session];
-
-    library.add(faClock);
-    library.add(faStopwatch);
-
-    const wrapper = mount(
-      <Home commonStore={commonStore} contentfulStore={contentfulStore} />
-    );
-    expect(wrapper.find("#noSessions").length).toBe(0);
-    expect(wrapper.find("#currentSession").length).not.toBe(0);
+    const wrapper = shallow(<SpeakerCard speaker={session.fields} />);
+    expect(wrapper.find("#title").text()).toBe("未定");
+    expect(wrapper.find("#speakerName").text()).toBe("toyokappa");
+    expect(wrapper.find("#speakTime").text()).toBe("13:30-13:35");
+    expect(wrapper.find("#speakDuration").text()).toBe("5min");
   });
-*/
 });
