@@ -3,9 +3,8 @@ import { observable } from "mobx";
 import { ISpeakerFields } from "../models/Speaker";
 
 const client = createClient({
-  space: "dv2s5i251t5w",
-  accessToken:
-    "9ed4fd0fd7f657e0217ca891351ec7fe99380274d5ae0c494dbcac9109ff86a3"
+  space: process.env.REACT_APP_CONTENTFUL_SPACE as string,
+  accessToken: process.env.REACT_APP_CONTENTFUL_ACCESS_TOKEN as string
 });
 
 export interface IContentfulStore {
