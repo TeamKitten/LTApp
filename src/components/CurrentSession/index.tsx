@@ -73,7 +73,10 @@ const WithIconTextWrapper = styled.div`
 `;
 
 export const CurrentSession = (props: IProps) => (
-  <Wrapper imageUrl={props.currentSession.fields.avatar.fields.file.url}>
+  <Wrapper
+    id="currentSession"
+    imageUrl={props.currentSession.fields.avatar.fields.file.url}
+  >
     <Inner>
       <Heading>現在登壇中</Heading>
       <Title>{props.currentSession.fields.title}</Title>
