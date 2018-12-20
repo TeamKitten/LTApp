@@ -18,6 +18,6 @@ jobs: # a collection of steps
       - run: # run lint
           name: lint
           command: yarn lint
-      - run: # attempt build
-          name: build
+      - run:
+          name: test
           command: yarn test
