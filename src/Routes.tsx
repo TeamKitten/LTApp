@@ -5,6 +5,7 @@ import styled from "styled-components";
 import { Header } from "./components/Header";
 import { NavBar } from "./components/NavBar";
 import { HomeContainer } from "./containers/Home";
+import { QRContainer } from "./containers/QR";
 import { SpeakersContainer } from "./containers/Speakers";
 import { NoMatch } from "./pages/NoMatch";
 import { ICommonStore } from "./stores/Common";
@@ -32,6 +33,7 @@ export class Routes extends React.Component<IProps> {
                 path="/speakers"
                 component={SpeakersContainer}
               />
+              <Route exact={true} path="/qr" component={QRContainer} />
               <Route component={NoMatch} />
             </Switch>
           </SwitchWrapper>

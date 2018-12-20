@@ -15,7 +15,7 @@ interface IProps {
 export class SpeakersContainer extends React.Component<IProps> {
   public componentWillMount() {
     this.props.commonStore.title = "登壇者";
-    this.props.contentfulStore.fetchSpeakers();
+    this.props.contentfulStore.fetch();
   }
 
   public render() {

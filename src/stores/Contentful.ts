@@ -12,7 +12,7 @@ export interface IContentfulStore {
   participants: Array<Entry<IParticipantFields>>;
   sessions: Array<Entry<ISessionFields>>;
   error: Error | null;
-  fetchSpeakers: () => Promise<void>;
+  fetch: () => Promise<void>;
 }
 
 export class ContentfulStore implements IContentfulStore {
@@ -21,7 +21,7 @@ export class ContentfulStore implements IContentfulStore {
 
   @observable public error: Error | null = null;
 
-  public async fetchSpeakers() {
+  public async fetch() {
     this.error = null;
     const sessions = await client
       .getEntries({

@@ -10,6 +10,7 @@ import { library } from "@fortawesome/fontawesome-svg-core";
 import {
   faClock,
   faHome,
+  faQrcode,
   faStopwatch,
   faUsers
 } from "@fortawesome/free-solid-svg-icons";
@@ -19,6 +20,7 @@ library.add(faHome);
 library.add(faUsers);
 library.add(faClock);
 library.add(faStopwatch);
+library.add(faQrcode);
 
 const stores = {
   commonStore: new CommonStore(),
