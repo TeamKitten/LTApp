@@ -1,6 +1,7 @@
 import { createClient, Entry } from "contentful";
 import { observable } from "mobx";
-import { ISpeakerFields } from "../models/Speaker";
+import { IParticipantFields } from "../models/Participant";
+import { ISessionFields } from "../models/Session";
 
 const client = createClient({
   space: process.env.REACT_APP_CONTENTFUL_SPACE as string,
@@ -8,28 +9,41 @@ const client = createClient({
 });
 
 export interface IContentfulStore {
-  speakers: Array<Entry<ISpeakerFields>>;
+  participants: Array<Entry<IParticipantFields>>;
+  sessions: Array<Entry<ISessionFields>>;
   error: Error | null;
-  fetchSpeakers: () => Promise<void>;
+  fetch: () => Promise<void>;
 }
 
 export class ContentfulStore implements IContentfulStore {
-  @observable public speakers: Array<Entry<ISpeakerFields>> = [];
+  @observable public participants: Array<Entry<IParticipantFields>> = [];
+  @observable public sessions: Array<Entry<ISessionFields>> = [];
 
   @observable public error: Error | null = null;
 
-  public async fetchSpeakers() {
+  public async fetch() {
     this.error = null;
-    const entries = await client
+    const sessions = await client
       .getEntries({
-        content_type: "speaker"
+        content_type: "session"
       })
       .catch(err => {
         this.error = err;
         return;
       });
-    if (entries) {
-      this.speakers = entries.items as Array<Entry<ISpeakerFields>>;
+    const participants = await client
+      .getEntries({
+        content_type: "participant"
+      })
+      .catch(err => {
+        this.error = err;
+        return;
+      });
+    if (sessions && participants) {
+      this.sessions = sessions.items as Array<Entry<ISessionFields>>;
+      this.participants = participants.items as Array<
+        Entry<IParticipantFields>
+      >;
     }
   }
 }

@@ -17,11 +17,14 @@ interface IProps {
 export class HomeContainer extends React.Component<IProps> {
   public componentWillMount() {
     this.props.commonStore.title = "ホーム";
-    this.props.contentfulStore.fetchSpeakers();
+    this.props.contentfulStore.fetch();
   }
 
   public render() {
-    if (!this.props.contentfulStore.speakers.length) {
+    if (
+      !this.props.contentfulStore.sessions.length ||
+      !this.props.contentfulStore.participants.length
+    ) {
       return null;
     }
     return (

@@ -32,5 +32,11 @@ export const NavBar = withRouter((props: RouteComponentProps) => (
       icon="users"
       onClick={() => props.history.replace("/speakers")}
     />
+    <NavBarIcon
+      active={props.location.pathname === "/qr"}
+      title="参加証"
+      icon="qrcode"
+      onClick={() => props.history.replace("/qr")}
+    />
   </StyledFooter>
 ));

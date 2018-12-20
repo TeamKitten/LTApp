@@ -2,20 +2,25 @@ import { Entry } from "contentful";
 import * as React from "react";
 import { CountDown } from "../../components/Countdown";
 import { CurrentSession } from "../../components/CurrentSession";
-import { ISpeakerFields } from "../../models/Speaker";
+import { IParticipant, IParticipantFields } from "../../models/Participant";
+import { ISessionFields } from "../../models/Session";
 import { ICommonStore } from "../../stores/Common";
 import { IContentfulStore } from "../../stores/Contentful";
 
 interface ISpeakerOrCountdownProps {
   openDate: Date;
   closeDate: Date;
-  speakers: Array<Entry<ISpeakerFields>>;
+  sessions: Array<Entry<ISessionFields>>;
+  participants: Array<Entry<IParticipantFields>>;
 }
+
+const participant = (participants: IParticipant[], id: string) =>
+  participants.filter(p => p.fields.participantId === id)[0].fields;
 
 const SpeakerOrCountDown = (props: ISpeakerOrCountdownProps) => {
   const now = Date.now();
-  const currentSession = props.speakers.filter(s => {
-    const sessionEndDate = new Date(s.fields.time);
+  const currentSession = props.sessions.filter(s => {
+    const sessionEndDate = new Date(s.fields.startAt);
     const timeRange = s.fields.long ? 10 : 5;
     sessionEndDate.setMinutes(sessionEndDate.getMinutes() + timeRange);
     const diff = sessionEndDate.getTime() - now;
@@ -26,7 +31,13 @@ const SpeakerOrCountDown = (props: ISpeakerOrCountdownProps) => {
   return now < props.openDate.getTime() || now > props.closeDate.getTime() ? (
     <CountDown openDate={props.openDate} closeDate={props.closeDate} />
   ) : currentSession.length ? (
-    <CurrentSession currentSession={currentSession[0]} />
+    <CurrentSession
+      currentSession={currentSession[0]}
+      currentSessionSpeaker={participant(
+        props.participants,
+        currentSession[0].fields.participantId
+      )}
+    />
   ) : (
     <div
       style={{
@@ -52,7 +63,8 @@ export const Home = (props: IProps) => (
     <SpeakerOrCountDown
       closeDate={props.commonStore.closeDate}
       openDate={props.commonStore.openDate}
-      speakers={props.contentfulStore.speakers}
+      participants={props.contentfulStore.participants}
+      sessions={props.contentfulStore.sessions}
     />
   </section>
 );

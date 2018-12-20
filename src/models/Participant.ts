@@ -1,16 +1,16 @@
 import { Sys } from "contentful";
 
-export interface ISpeaker {
+export interface IParticipant {
   sys: Sys;
-  fields: ISpeakerFields;
+  fields: IParticipantFields;
 }
 
-export interface ISpeakerFields {
+export interface IParticipantFields {
   avatar: IAvatar;
-  speakerName: string;
-  title: string;
-  long: boolean;
-  time: string;
+  participantId: string;
+  name: string;
+  afterParty: boolean;
+  paid: string;
 }
 
 export interface IAvatar {

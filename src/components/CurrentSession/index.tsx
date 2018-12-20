@@ -1,11 +1,13 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import * as React from "react";
 import styled from "styled-components";
-import { ISpeaker } from "../../models/Speaker";
+import { IParticipantFields } from "../../models/Participant";
+import { ISession } from "../../models/Session";
 import { getEndStr, getStartStr } from "../../utils/date";
 
 interface IProps {
-  currentSession: ISpeaker;
+  currentSession: ISession;
+  currentSessionSpeaker: IParticipantFields;
 }
 
 interface IWrapperProps {
@@ -76,20 +78,20 @@ const WithIconTextWrapper = styled.div`
 export const CurrentSession = (props: IProps) => (
   <Wrapper
     id="currentSession"
-    imageUrl={props.currentSession.fields.avatar.fields.file.url}
+    imageUrl={props.currentSessionSpeaker.avatar.fields.file.url}
   >
     <Inner>
       <Heading>現在登壇中</Heading>
       <Title id="title">{props.currentSession.fields.title}</Title>
       <SpeakerName id="speakerName">
-        {props.currentSession.fields.speakerName}
+        {props.currentSessionSpeaker.name}
       </SpeakerName>
       <WithIconTextWrapper>
         <FontAwesomeIcon icon="clock" />
         <SpeakTime id="speakTime">
-          {getStartStr(props.currentSession.fields.time)}-
+          {getStartStr(props.currentSession.fields.startAt)}-
           {getEndStr(
-            props.currentSession.fields.time,
+            props.currentSession.fields.startAt,
             props.currentSession.fields.long
           )}
         </SpeakTime>

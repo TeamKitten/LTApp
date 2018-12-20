@@ -1,7 +1,8 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import * as React from "react";
+import { ISessionFields } from "src/models/Session";
 import styled from "styled-components";
-import { ISpeakerFields } from "../../models/Speaker";
+import { IParticipantFields } from "../../models/Participant";
 import { getEndStr, getStartStr } from "../../utils/date";
 
 interface IStyledCardProps {
@@ -60,25 +61,26 @@ const WithIconTextWrapper = styled.div`
 `;
 
 interface IProps {
-  speaker: ISpeakerFields;
+  participant: IParticipantFields;
+  session: ISessionFields;
 }
 
 export const SpeakerCard = (props: IProps) => (
-  <Card imageUrl={props.speaker.avatar.fields.file.url}>
+  <Card imageUrl={props.participant.avatar.fields.file.url}>
     <CardInner>
-      <Title id="title">{props.speaker.title}</Title>
-      <SpeakerName id="speakerName">{props.speaker.speakerName}</SpeakerName>
+      <Title id="title">{props.session.title}</Title>
+      <SpeakerName id="speakerName">{props.participant.name}</SpeakerName>
       <WithIconTextWrapper>
         <FontAwesomeIcon icon="clock" />
         <SpeakTime id="speakTime">
-          {getStartStr(props.speaker.time)}-
-          {getEndStr(props.speaker.time, props.speaker.long)}
+          {getStartStr(props.session.startAt)}-
+          {getEndStr(props.session.startAt, props.session.long)}
         </SpeakTime>
       </WithIconTextWrapper>
       <WithIconTextWrapper>
         <FontAwesomeIcon icon="stopwatch" />
         <SpeakTime id="speakDuration">
-          {props.speaker.long ? "10min" : "5min"}
+          {props.session.long ? "10min" : "5min"}
         </SpeakTime>
       </WithIconTextWrapper>
     </CardInner>
