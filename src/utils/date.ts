@@ -10,7 +10,7 @@ export const getStartStr = (start: string) => {
 
 export const getEndStr = (start: string, long: boolean) => {
   const date = new Date(start);
-  date.setMinutes(long ? date.getMinutes() + 10 : date.getMinutes() + 5);
+  date.setMinutes(long ? date.getMinutes() + 15 : date.getMinutes() + 10);
   const hours = paddedDate(date.getHours());
   const minutes = paddedDate(date.getMinutes());
   return `${hours}:${minutes}`;
