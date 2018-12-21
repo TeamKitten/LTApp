@@ -100,7 +100,7 @@ const YourQR = (props: IProps) => (
       size={250}
       value={
         props.token
-          ? `https://pmss.teamkitten.tk/${base64Encode(props.token)}`
+          ? `https://pmss.teamkitten.tk/token?b=${base64Encode(props.token)}`
           : ""
       }
     />
