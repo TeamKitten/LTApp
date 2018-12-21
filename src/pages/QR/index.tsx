@@ -70,7 +70,7 @@ interface IProps {
 
 const InputForm = (props: IProps) => (
   <Form onSubmit={props.onSubmit}>
-    <Label>Connpassの受付番号を入力してください</Label>
+    <Label>connpassの受付番号を入力してください</Label>
     <InputText
       onChange={props.onNumberChange}
       type="number"

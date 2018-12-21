@@ -14,8 +14,6 @@ const StyledFooter = styled.footer`
   display: flex;
   justify-content: space-around;
   align-items: center;
-  padding-bottom: constant(safe-area-inset-bottom);
-  padding-bottom: env(safe-area-inset-bottom);
 `;
 
 export const NavBar = withRouter((props: RouteComponentProps) => (

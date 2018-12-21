@@ -6,8 +6,6 @@ const Wrapper = styled.div`
   height: calc(100vh - 48px - 48px);
   text-align: center;
   overflow: hidden;
-
-  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16);
 `;
 
 const TimerText = styled.span`
@@ -95,7 +93,7 @@ const Slider = (props: IProps) => {
                 href="https://team-kitten.connpass.com/event/113249/"
                 rel="noreferrer noopener"
               >
-                Connpassに登録
+                connpassに登録
               </CardLink>
             </CardInner>
           </Card>
