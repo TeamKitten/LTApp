@@ -1,6 +1,7 @@
 import * as React from "react";
 import * as ReactSwipe from "react-swipe";
 import styled from "styled-components";
+import { PaginationDot, PaginationDots } from "../../components/Pagination";
 import { SpeakerCard } from "../../components/SpeakerCard";
 import { IParticipant } from "../../models/Participant";
 import { ISession } from "../../models/Session";
@@ -23,26 +24,56 @@ interface IProps {
   participants: IParticipant[];
 }
 
+interface IState {
+  page: number;
+}
+
 const participant = (participants: IParticipant[], id: string) =>
   participants.filter(p => p.fields.participantId === id)[0].fields;
 
-export const Speakers = (props: IProps) => (
-  <Wrapper>
-    <ReactSwipe
-      key={props.sessions.length}
-      swipeOptions={{ continuous: false }}
-    >
-      {props.sessions.map(item => (
-        <SpeakerCardItem className="session" key={item.sys.id}>
-          <SpeakerCard
-            participant={participant(
-              props.participants,
-              item.fields.participantId
-            )}
-            session={item.fields}
-          />
-        </SpeakerCardItem>
-      ))}
-    </ReactSwipe>
-  </Wrapper>
-);
+export class Speakers extends React.Component<IProps, IState> {
+  constructor(props: IProps) {
+    super(props);
+    this.state = {
+      page: 0
+    };
+    this.onPageChange = this.onPageChange.bind(this);
+  }
+
+  public onPageChange(page: number) {
+    this.setState({
+      page
+    });
+  }
+
+  public render() {
+    return (
+      <Wrapper>
+        <ReactSwipe
+          key={this.props.sessions.length}
+          swipeOptions={{
+            continuous: false,
+            callback: this.onPageChange
+          }}
+        >
+          {this.props.sessions.map(item => (
+            <SpeakerCardItem className="session" key={item.sys.id}>
+              <SpeakerCard
+                participant={participant(
+                  this.props.participants,
+                  item.fields.participantId
+                )}
+                session={item.fields}
+              />
+            </SpeakerCardItem>
+          ))}
+        </ReactSwipe>
+        <PaginationDots>
+          {this.props.sessions.map((item, i) => (
+            <PaginationDot active={i === this.state.page} />
+          ))}
+        </PaginationDots>
+      </Wrapper>
+    );
+  }
+}
