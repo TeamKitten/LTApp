@@ -1,6 +1,7 @@
 import * as React from "react";
 import * as ReactSwipe from "react-swipe";
 import styled from "styled-components";
+import { PaginationDot, PaginationDots } from "../Pagination";
 
 const Wrapper = styled.div`
   height: calc(100vh - 48px - 48px);
@@ -67,41 +68,70 @@ const CardLink = styled.a`
   font-size: 1.25rem;
 `;
 
-const Slider = (props: IProps) => {
-  const now = Date.now();
-  const diff = Math.ceil((props.openDate.getTime() - now) / 86400000);
-  return (
-    <SliderWrapper>
-      <ReactSwipe swipeOptions={{ continuous: false }}>
-        <SwipeItem>
-          <Card imageUrl={require("../../assets/clock.jpg")}>
-            <CardInner>
-              <h1 id="remaning">
-                KittenLT1開催まであと
-                <TimerText>{diff}日</TimerText>
-              </h1>
-            </CardInner>
-          </Card>
-        </SwipeItem>
-        <SwipeItem>
-          <Card imageUrl={require("../../assets/mic.jpg")}>
-            <CardInner>
-              <h1 style={{ fontWeight: "bold", fontSize: "2rem" }}>
-                登壇者募集中
-              </h1>
-              <CardLink
-                href="https://team-kitten.connpass.com/event/113249/"
-                rel="noreferrer noopener"
-              >
-                connpassに登録
-              </CardLink>
-            </CardInner>
-          </Card>
-        </SwipeItem>
-      </ReactSwipe>
-    </SliderWrapper>
-  );
-};
+interface ISliderState {
+  page: number;
+}
+
+export class Slider extends React.Component<IProps, ISliderState> {
+  constructor(props: IProps) {
+    super(props);
+    this.state = {
+      page: 0
+    };
+    this.onPageChange = this.onPageChange.bind(this);
+  }
+
+  public onPageChange(page: number) {
+    this.setState({
+      page
+    });
+  }
+
+  public render() {
+    const now = Date.now();
+    const diff = Math.ceil((this.props.openDate.getTime() - now) / 86400000);
+    return (
+      <SliderWrapper>
+        <ReactSwipe
+          swipeOptions={{
+            continuous: false,
+            callback: this.onPageChange
+          }}
+        >
+          <SwipeItem>
+            <Card imageUrl={require("../../assets/clock.jpg")}>
+              <CardInner>
+                <h1 id="remaning">
+                  KittenLT1開催まであと
+                  <TimerText>{diff}日</TimerText>
+                </h1>
+              </CardInner>
+            </Card>
+          </SwipeItem>
+          <SwipeItem>
+            <Card imageUrl={require("../../assets/mic.jpg")}>
+              <CardInner>
+                <h1 style={{ fontWeight: "bold", fontSize: "2rem" }}>
+                  登壇者募集中
+                </h1>
+                <CardLink
+                  href="https://team-kitten.connpass.com/event/113249/"
+                  rel="noreferrer noopener"
+                >
+                  connpassに登録
+                </CardLink>
+              </CardInner>
+            </Card>
+          </SwipeItem>
+        </ReactSwipe>
+        <PaginationDots>
+          <PaginationDot active={this.state.page === 0} />
+          <PaginationDot active={this.state.page === 1} />
+        </PaginationDots>
+      </SliderWrapper>
+    );
+  }
+}
 
 interface IProps {
   openDate: Date;
