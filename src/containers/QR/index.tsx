@@ -43,7 +43,7 @@ export class QRContainer extends React.Component<IProps, IState> {
     this.onNumberChange = this.onNumberChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
     this.getParticipant = this.getParticipant.bind(this);
-    this.onResetClick = this.onResetClick.bind(this);
+    this.handleOnReset = this.handleOnReset.bind(this);
   }
 
   public componentWillMount() {
@@ -96,7 +96,7 @@ export class QRContainer extends React.Component<IProps, IState> {
     });
   }
 
-  public onResetClick(event: React.MouseEvent<HTMLButtonElement>) {
+  public handleOnReset() {
     Cookies.remove("receptionNumber");
     this.setState({
       token: null,
@@ -151,7 +151,7 @@ export class QRContainer extends React.Component<IProps, IState> {
       <QRPage
         error={this.state.error}
         onNumberChange={this.onNumberChange}
-        onResetClick={this.onResetClick}
+        onReset={this.handleOnReset}
         onSubmit={this.onSubmit}
         token={this.state.token}
       />
