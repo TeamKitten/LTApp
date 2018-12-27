@@ -42,6 +42,7 @@ const InputText = styled(Input)`
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.25);
   padding: 12px;
   width: 90%;
+  font-size: 1rem;
 `;
 
 const InputButton = styled(Input)`
@@ -52,6 +53,7 @@ const InputButton = styled(Input)`
   border-radius: 2px;
   font-weight: bold;
   box-shadow: 0 3px 6px rgba(0, 143, 254, 0.25);
+  font-size: 1rem;
 `;
 
 const ErrorText = styled.b`

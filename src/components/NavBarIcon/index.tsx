@@ -12,6 +12,7 @@ const Container = styled.div`
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  cursor: pointer;
 `;
 
 const Title = styled.b`
