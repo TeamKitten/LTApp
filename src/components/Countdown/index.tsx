@@ -73,18 +73,30 @@ interface ISliderState {
 }
 
 export class Slider extends React.Component<IProps, ISliderState> {
+  private swipeEl: ReactSwipe | null = null;
+
   constructor(props: IProps) {
     super(props);
     this.state = {
       page: 0
     };
     this.onPageChange = this.onPageChange.bind(this);
+    this.onPaginationDotClick = this.onPaginationDotClick.bind(this);
   }
 
   public onPageChange(page: number) {
     this.setState({
       page
     });
+  }
+
+  public onPaginationDotClick(page: number) {
+    if (this.swipeEl) {
+      this.swipeEl.slide(page, 500);
+      this.setState({
+        page
+      });
+    }
   }
 
   public render() {
@@ -97,6 +109,7 @@ export class Slider extends React.Component<IProps, ISliderState> {
             continuous: false,
             callback: this.onPageChange
           }}
+          ref={el => (this.swipeEl = el)}
         >
           <SwipeItem>
             <Card imageUrl={require("../../assets/clock.jpg")}>
@@ -125,8 +138,14 @@ export class Slider extends React.Component<IProps, ISliderState> {
           </SwipeItem>
         </ReactSwipe>
         <PaginationDots>
-          <PaginationDot active={this.state.page === 0} />
-          <PaginationDot active={this.state.page === 1} />
+          <PaginationDot
+            onClick={() => this.onPaginationDotClick(0)}
+            active={this.state.page === 0}
+          />
+          <PaginationDot
+            onClick={() => this.onPaginationDotClick(1)}
+            active={this.state.page === 1}
+          />
         </PaginationDots>
       </SliderWrapper>
     );

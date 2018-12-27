@@ -32,6 +32,8 @@ const participant = (participants: IParticipant[], id: string) =>
   participants.filter(p => p.fields.participantId === id)[0].fields;
 
 export class Speakers extends React.Component<IProps, IState> {
+  private swipeEl: ReactSwipe | null = null;
+
   constructor(props: IProps) {
     super(props);
     this.state = {
@@ -46,6 +48,15 @@ export class Speakers extends React.Component<IProps, IState> {
     });
   }
 
+  public onPaginationDotClick(page: number) {
+    if (this.swipeEl) {
+      this.swipeEl.slide(page, 500);
+      this.setState({
+        page
+      });
+    }
+  }
+
   public render() {
     return (
       <Wrapper>
@@ -55,6 +66,7 @@ export class Speakers extends React.Component<IProps, IState> {
             continuous: false,
             callback: this.onPageChange
           }}
+          ref={el => (this.swipeEl = el)}
         >
           {this.props.sessions.map(item => (
             <SpeakerCardItem className="session" key={item.sys.id}>
@@ -70,7 +82,11 @@ export class Speakers extends React.Component<IProps, IState> {
         </ReactSwipe>
         <PaginationDots>
           {this.props.sessions.map((item, i) => (
-            <PaginationDot active={i === this.state.page} />
+            <PaginationDot
+              key={i}
+              onClick={() => this.onPaginationDotClick(i)}
+              active={i === this.state.page}
+            />
           ))}
         </PaginationDots>
       </Wrapper>

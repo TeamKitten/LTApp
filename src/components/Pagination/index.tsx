@@ -24,6 +24,7 @@ export const PaginationDot = styled.li`
   background: ${(props: PaginationDotProps) =>
     props.active ? "#008ffe" : "#eee"};
   margin-right: 12px;
+  cursor: pointer;
   &:last-child {
     margin-right: 0;
   }
