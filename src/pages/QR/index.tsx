@@ -54,6 +54,20 @@ const InputButton = styled(Input)`
   font-weight: bold;
   box-shadow: 0 3px 6px rgba(0, 143, 254, 0.25);
   font-size: 1rem;
+  cursor: pointer;
+`;
+const Button = styled.button`
+  display: block;
+  margin: 32px auto 0 auto;
+  border: none;
+  background: var(--brand);
+  color: #fff;
+  padding: 8px 24px;
+  border-radius: 2px;
+  font-weight: bold;
+  box-shadow: 0 3px 6px rgba(0, 143, 254, 0.25);
+  font-size: 1rem;
+  cursor: pointer;
 `;
 
 const ErrorText = styled.b`
@@ -65,6 +79,7 @@ const ErrorText = styled.b`
 
 interface IProps {
   onSubmit: (event: React.FormEvent<HTMLFormElement>) => void;
+  onResetClick: (event: React.MouseEvent<HTMLButtonElement>) => void;
   onNumberChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   token: string | null;
   error: Error | null;
@@ -90,7 +105,7 @@ const YourQRWrapper = styled.div`
 
 const YourQRHeading = styled.p`
   font-weight: bold;
-  margin-bottom: 12px;
+  margin-bottom: 24px;
 `;
 
 const YourQR = (props: IProps) => (
@@ -106,6 +121,7 @@ const YourQR = (props: IProps) => (
           : ""
       }
     />
+    <Button onClick={props.onResetClick}>リセット</Button>
   </YourQRWrapper>
 );
 
