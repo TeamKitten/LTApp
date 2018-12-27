@@ -1,6 +1,8 @@
 import * as QRCode from "qrcode.react";
 import * as React from "react";
 import styled from "styled-components";
+import { Button } from "../../components/Button";
+import { Modal } from "../../components/Modal";
 import { base64Encode } from "../../utils/base64";
 
 const Wrapper = styled.section`
@@ -54,6 +56,7 @@ const InputButton = styled(Input)`
   font-weight: bold;
   box-shadow: 0 3px 6px rgba(0, 143, 254, 0.25);
   font-size: 1rem;
+  cursor: pointer;
 `;
 
 const ErrorText = styled.b`
@@ -63,8 +66,13 @@ const ErrorText = styled.b`
   margin: 12px 0;
 `;
 
+const CustomButton = styled(Button)`
+  margin: 32px auto 0 auto;
+`;
+
 interface IProps {
   onSubmit: (event: React.FormEvent<HTMLFormElement>) => void;
+  onReset: () => void;
   onNumberChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   token: string | null;
   error: Error | null;
@@ -90,24 +98,69 @@ const YourQRWrapper = styled.div`
 
 const YourQRHeading = styled.p`
   font-weight: bold;
-  margin-bottom: 12px;
+  margin-bottom: 24px;
 `;
 
-const YourQR = (props: IProps) => (
-  <YourQRWrapper>
-    <YourQRHeading>
-      {props.token ? JSON.parse(props.token).name : null}さんの参加証
-    </YourQRHeading>
-    <QRCode
-      size={250}
-      value={
-        props.token
-          ? `https://pmss.teamkitten.tk/token?b=${base64Encode(props.token)}`
-          : ""
-      }
-    />
-  </YourQRWrapper>
-);
+interface IState {
+  modalOpen: boolean;
+}
+
+class YourQR extends React.Component<IProps, IState> {
+  constructor(props: IProps) {
+    super(props);
+    this.state = {
+      modalOpen: false
+    };
+    this.handleOnRequestClose = this.handleOnRequestClose.bind(this);
+    this.handleOnRequestReset = this.handleOnRequestReset.bind(this);
+    this.onResetClick = this.onResetClick.bind(this);
+  }
+
+  public handleOnRequestClose() {
+    this.setState({
+      modalOpen: false
+    });
+  }
+
+  public handleOnRequestReset() {
+    this.props.onReset();
+  }
+
+  public onResetClick() {
+    this.setState({
+      modalOpen: true
+    });
+  }
+
+  public render() {
+    return (
+      <YourQRWrapper>
+        <Modal
+          title="確認"
+          body="リセットします。よろしいですか？"
+          isOpen={this.state.modalOpen}
+          onRequestClose={this.handleOnRequestClose}
+          onRequestReset={this.handleOnRequestReset}
+        />
+        <YourQRHeading>
+          {this.props.token ? JSON.parse(this.props.token).name : null}
+          さんの参加証
+        </YourQRHeading>
+        <QRCode
+          size={250}
+          value={
+            this.props.token
+              ? `https://pmss.teamkitten.tk/token?b=${base64Encode(
+                  this.props.token
+                )}`
+              : ""
+          }
+        />
+        <CustomButton onClick={this.onResetClick}>リセット</CustomButton>
+      </YourQRWrapper>
+    );
+  }
+}
 
 export const QRPage = (props: IProps) => (
   <Wrapper>

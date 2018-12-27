@@ -1,9 +1,12 @@
 import { Location } from "history";
+import * as Cookies from "js-cookie";
 import { inject, observer } from "mobx-react";
 import * as React from "react";
 import { QRPage } from "../..//pages/QR";
 import { ICommonStore } from "../../stores/Common";
 import { IContentfulStore } from "../../stores/Contentful";
+
+const COOKIE_NAME = "receptionNumber";
 
 interface IProps {
   commonStore: ICommonStore;
@@ -21,6 +24,15 @@ interface IState {
 @inject("contentfulStore")
 @observer
 export class QRContainer extends React.Component<IProps, IState> {
+  private originalIsMounted = false;
+
+  get isMounted() {
+    return this.originalIsMounted;
+  }
+  set isMounted(flag) {
+    this.originalIsMounted = flag;
+  }
+
   public constructor(props: IProps) {
     super(props);
     this.state = {
@@ -30,11 +42,40 @@ export class QRContainer extends React.Component<IProps, IState> {
     };
     this.onNumberChange = this.onNumberChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
+    this.getParticipant = this.getParticipant.bind(this);
+    this.handleOnReset = this.handleOnReset.bind(this);
   }
 
   public componentWillMount() {
     this.props.commonStore.title = "参加証";
-    this.props.contentfulStore.fetch();
+  }
+
+  public async componentDidMount() {
+    this.isMounted = true;
+    await this.props.contentfulStore.fetch();
+    const receptionNumber = Cookies.get(COOKIE_NAME);
+    if (!this.isMounted) {
+      return;
+    }
+    if (receptionNumber) {
+      const num = parseInt(receptionNumber, 10);
+      if (isNaN(num)) {
+        this.setState({
+          error: new Error("クッキーが不正です")
+        });
+      }
+      this.setState({
+        num
+      });
+      const participant = this.getParticipant(num);
+      this.setState({
+        token: JSON.stringify(participant)
+      });
+    }
+  }
+
+  public componentWillUnmount() {
+    this.isMounted = false;
   }
 
   public onNumberChange(event: React.ChangeEvent<HTMLInputElement>) {
@@ -48,8 +89,25 @@ export class QRContainer extends React.Component<IProps, IState> {
     this.setState({
       error: null
     });
+    Cookies.set(COOKIE_NAME, this.state.num.toString());
+    const participant = this.getParticipant(this.state.num);
+    this.setState({
+      token: JSON.stringify(participant)
+    });
+  }
+
+  public handleOnReset() {
+    Cookies.remove("receptionNumber");
+    this.setState({
+      token: null,
+      error: null,
+      num: 0
+    });
+  }
+
+  public getParticipant(num: number) {
     const foundParticipants = this.props.contentfulStore.participants.filter(
-      p => p.fields.participantId === this.state.num.toString()
+      p => p.fields.participantId === num.toString()
     );
     if (!foundParticipants.length) {
       this.setState({
@@ -58,9 +116,9 @@ export class QRContainer extends React.Component<IProps, IState> {
       return;
     }
     const foundSessions = this.props.contentfulStore.sessions.filter(
-      s => s.fields.participantId === this.state.num.toString()
+      s => s.fields.participantId === num.toString()
     );
-    const participant = !foundSessions.length
+    return !foundSessions.length
       ? {
           avatarUrl: foundParticipants[0].fields.avatar.fields.file.url,
           id: foundParticipants[0].fields.participantId,
@@ -80,9 +138,6 @@ export class QRContainer extends React.Component<IProps, IState> {
             startAt: foundSessions[0].fields.startAt
           }
         };
-    this.setState({
-      token: JSON.stringify(participant)
-    });
   }
 
   public render() {
@@ -96,6 +151,7 @@ export class QRContainer extends React.Component<IProps, IState> {
       <QRPage
         error={this.state.error}
         onNumberChange={this.onNumberChange}
+        onReset={this.handleOnReset}
         onSubmit={this.onSubmit}
         token={this.state.token}
       />
