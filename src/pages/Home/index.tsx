@@ -21,7 +21,7 @@ const SpeakerOrCountDown = (props: ISpeakerOrCountdownProps) => {
   const now = Date.now();
   const currentSession = props.sessions.filter(s => {
     const sessionEndDate = new Date(s.fields.startAt);
-    const timeRange = s.fields.long ? 10 : 5;
+    const timeRange = s.fields.long ? 15 : 10;
     sessionEndDate.setMinutes(sessionEndDate.getMinutes() + timeRange);
     const diff = sessionEndDate.getTime() - now;
     const min = Math.floor(diff / 60000);

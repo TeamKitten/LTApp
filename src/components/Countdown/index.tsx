@@ -1,6 +1,7 @@
 import * as React from "react";
 import * as ReactSwipe from "react-swipe";
 import styled from "styled-components";
+import ThankYouBG from "../../assets/thankyou.jpg";
 import { PaginationDot, PaginationDots } from "../Pagination";
 
 const Wrapper = styled.div`
@@ -157,21 +158,39 @@ interface IProps {
   closeDate: Date;
 }
 
-const GreetingWrapper = styled.div`
+const TadaWrapper = styled.div`
+  height: calc(100vh - 48px - 48px);
+  background: url(${ThankYouBG});
+  background-size: cover;
+  background-attachment: fixed;
+  background-position: center right;
+  background-repeat: no-repeat;
+`;
+
+const TadaInner = styled.div`
+  background: rgba(0, 0, 0, 0.25);
+  border-radius: 32px;
+  height: 100%;
+  color: #fff;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  padding: 32px;
+  font-size: 1.5rem;
+  line-height: 1.25;
+  font-weight: bold;
 `;
 
 export const CountDown = (props: IProps) => (
   <Wrapper>
     {props.closeDate.getTime() < Date.now() ? (
-      <GreetingWrapper>
-        <h1 id="greeting" style={{ fontWeight: "bold" }}>
-          ご来場ありがとうございました！
-        </h1>
-      </GreetingWrapper>
+      <TadaWrapper id="tada">
+        <TadaInner>
+          <h1 style={{ fontSize: "3rem" }}>ご来場</h1>
+          <h2>ありがとうございました！</h2>
+        </TadaInner>
+      </TadaWrapper>
     ) : (
       <Slider {...props} />
     )}
