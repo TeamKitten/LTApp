@@ -57,6 +57,7 @@ const Title = styled.h1`
   font-size: 1.5rem;
   font-weight: bold;
   margin-bottom: 8px;
+  text-align: left;
 `;
 const SpeakerName = styled.h2`
   font-weight: bold;

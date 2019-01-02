@@ -20,6 +20,6 @@ describe("CountDown Component", () => {
 
     const date = new Date("2019/2/2 13:30");
     const wrapper = mount(<CountDown openDate={date} closeDate={date} />);
-    expect(wrapper.find("#greeting").length).toBe(1);
+    expect(wrapper.find("#tada").length).toBe(3);
   });
 });
