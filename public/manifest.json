@@ -1,6 +1,7 @@
 {
   "name": "KittenLT1",
   "short_name": "KittenLT1",
+  "start_url": "/",
   "icons": [
     {
       "src": "/android-chrome-192x192.png",
