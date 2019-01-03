@@ -83,7 +83,7 @@ export const CurrentSession = (props: IProps) => (
   >
     <Inner>
       <Heading>現在登壇中</Heading>
-      <Title id="title">{props.currentSession.fields.title}</Title>
+      <Title id="sessionTitle">{props.currentSession.fields.title}</Title>
       <SpeakerName id="speakerName">
         {props.currentSessionSpeaker.name}
       </SpeakerName>

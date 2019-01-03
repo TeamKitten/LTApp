@@ -68,7 +68,7 @@ interface IProps {
 export const SpeakerCard = (props: IProps) => (
   <Card imageUrl={props.participant.avatar.fields.file.url}>
     <CardInner>
-      <Title id="title">{props.session.title}</Title>
+      <Title id="sessionTitle">{props.session.title}</Title>
       <SpeakerName id="speakerName">{props.participant.name}</SpeakerName>
       <WithIconTextWrapper>
         <FontAwesomeIcon icon="clock" />
