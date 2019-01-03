@@ -36,7 +36,7 @@ export const NavBarIcon = (props: IProps) => (
       size="lg"
       icon={props.icon}
     />
-    <Title id="navTitle" active={props.active}>
+    <Title className="navTitle" active={props.active}>
       {props.title}
     </Title>
   </Container>
