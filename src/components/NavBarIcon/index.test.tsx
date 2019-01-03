@@ -15,7 +15,7 @@ describe("NavBar Component", () => {
         onClick={jest.fn()}
       />
     );
-    expect(wrapper.find("#title").text()).toBe("Home");
+    expect(wrapper.find("#navTitle").text()).toBe("Home");
   });
   it("クリックできる", () => {
     library.add(faHome);
