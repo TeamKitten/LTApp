@@ -78,6 +78,14 @@ interface IProps {
   error: Error | null;
 }
 
+const onConnpassLinkClick = (
+  event: React.SyntheticEvent<HTMLButtonElement>
+) => {
+  event.preventDefault();
+  window.location.href =
+    "https://team-kitten.connpass.com/event/113249/ticket/";
+};
+
 const InputForm = (props: IProps) => (
   <Form onSubmit={props.onSubmit}>
     <Label>connpassの受付番号を入力してください</Label>
@@ -88,6 +96,7 @@ const InputForm = (props: IProps) => (
       required={true}
     />
     <InputButton type="submit" value="送信" />
+    <Button onClick={onConnpassLinkClick}>受付番号を入手(外部リンク)</Button>
     {props.error ? <ErrorText>{props.error.message}</ErrorText> : null}
   </Form>
 );
