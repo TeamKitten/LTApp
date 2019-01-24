@@ -157,6 +157,7 @@ class YourQR extends React.Component<IProps, IState> {
         </YourQRHeading>
         <QRCode
           size={250}
+          level="M"
           value={this.props.token ? base64Encode(this.props.token) : ""}
         />
         <CustomButton onClick={this.onResetClick}>リセット</CustomButton>
