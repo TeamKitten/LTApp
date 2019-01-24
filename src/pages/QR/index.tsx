@@ -157,13 +157,7 @@ class YourQR extends React.Component<IProps, IState> {
         </YourQRHeading>
         <QRCode
           size={250}
-          value={
-            this.props.token
-              ? `https://pmss.teamkitten.tk/token?b=${base64Encode(
-                  this.props.token
-                )}`
-              : ""
-          }
+          value={this.props.token ? base64Encode(this.props.token) : ""}
         />
         <CustomButton onClick={this.onResetClick}>リセット</CustomButton>
       </YourQRWrapper>
