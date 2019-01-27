@@ -70,6 +70,13 @@ const CustomButton = styled(Button)`
   margin: 32px auto 0 auto;
 `;
 
+const NoticeText = styled.p`
+  text-align: center;
+  color: #555;
+  margin-top: 12px;
+  line-height: 1.25;
+`;
+
 interface IProps {
   onSubmit: (event: React.FormEvent<HTMLFormElement>) => void;
   onReset: () => void;
@@ -97,6 +104,11 @@ const InputForm = (props: IProps) => (
     />
     <InputButton type="submit" value="送信" />
     <Button onClick={onConnpassLinkClick}>受付番号を入手(外部リンク)</Button>
+    <NoticeText>
+      404ページが表示される場合、
+      <br />
+      事前にconnpassでログインしてください。
+    </NoticeText>
     {props.error ? <ErrorText>{props.error.message}</ErrorText> : null}
   </Form>
 );
