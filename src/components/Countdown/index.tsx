@@ -15,6 +15,11 @@ const TimerText = styled.span`
   font-size: 3rem;
   font-weight: bold;
   margin-top: 8px;
+  text-align: center;
+`;
+
+const SmallTimerText = styled(TimerText)`
+  font-size: 2.5rem;
 `;
 
 interface IStyledCardProps {
@@ -102,7 +107,12 @@ export class Slider extends React.Component<IProps, ISliderState> {
 
   public render() {
     const now = Date.now();
-    const diff = Math.ceil((this.props.openDate.getTime() - now) / 86400000);
+    const startDate = new Date(this.props.openDate);
+    startDate.setHours(0);
+    startDate.setMinutes(0);
+    startDate.setSeconds(0);
+    startDate.setMilliseconds(0);
+    const diff = Math.ceil((startDate.getTime() - now) / 86400000);
     return (
       <SliderWrapper>
         <ReactSwipe
@@ -117,7 +127,11 @@ export class Slider extends React.Component<IProps, ISliderState> {
               <CardInner>
                 <h1 id="remaning">
                   KittenLT1開催まであと
-                  <TimerText>{diff}日</TimerText>
+                  {this.props.openDate.getDate() === new Date(now).getDate() ? (
+                    <SmallTimerText>本日開催！</SmallTimerText>
+                  ) : (
+                    <TimerText>{diff}日</TimerText>
+                  )}
                 </h1>
               </CardInner>
             </Card>
@@ -184,7 +198,7 @@ const TadaInner = styled.div`
 
 export const CountDown = (props: IProps) => (
   <Wrapper>
-    {props.closeDate.getTime() < Date.now() ? (
+    {props.closeDate.getTime() < new Date(Date.now()).getTime() ? (
       <TadaWrapper id="tada">
         <TadaInner>
           <h1 style={{ fontSize: "3rem" }}>ご来場</h1>

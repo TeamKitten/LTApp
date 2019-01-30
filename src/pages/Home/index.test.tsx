@@ -1,5 +1,3 @@
-// import { library } from "@fortawesome/fontawesome-svg-core";
-// import { faClock, faStopwatch } from "@fortawesome/free-solid-svg-icons";
 import { mount } from "enzyme";
 import * as React from "react";
 import { Home } from ".";
