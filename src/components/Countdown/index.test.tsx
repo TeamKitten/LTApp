@@ -9,17 +9,23 @@ describe("CountDown Component", () => {
     const constantDate = new Date("2019/1/1 00:00");
     Date.now = jest.fn(() => constantDate.getTime());
 
-    const date = new Date("2019/2/2 13:30");
-    const wrapper = mount(<CountDown openDate={date} closeDate={date} />);
-    expect(wrapper.find("#remaning").text()).toBe("KittenLT1開催まであと33日");
+    const openDate = new Date("2019/2/2 13:30");
+    const closeDate = new Date("2019/2/2 16:30");
+    const wrapper = mount(
+      <CountDown openDate={openDate} closeDate={closeDate} />
+    );
+    expect(wrapper.find("#remaning").text()).toBe("KittenLT1開催まであと32日");
   });
 
   it("閉場したら正しいメッセージを表示する", () => {
-    const constantDate = new Date("2019/2/2 13:35");
+    const constantDate = new Date("2019/2/2 16:35");
     Date.now = jest.fn(() => constantDate.getTime());
 
-    const date = new Date("2019/2/2 13:30");
-    const wrapper = mount(<CountDown openDate={date} closeDate={date} />);
+    const openDate = new Date("2019/2/2 13:30");
+    const closeDate = new Date("2019/2/2 16:30");
+    const wrapper = mount(
+      <CountDown openDate={openDate} closeDate={closeDate} />
+    );
     expect(wrapper.find("#tada").length).toBe(3);
   });
 });
