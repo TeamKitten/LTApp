@@ -15,6 +15,11 @@ const TimerText = styled.span`
   font-size: 3rem;
   font-weight: bold;
   margin-top: 8px;
+  text-align: center;
+`;
+
+const SmallTimerText = styled(TimerText)`
+  font-size: 2.5rem;
 `;
 
 interface IStyledCardProps {
@@ -122,9 +127,8 @@ export class Slider extends React.Component<IProps, ISliderState> {
               <CardInner>
                 <h1 id="remaning">
                   KittenLT1開催まであと
-                  {this.props.openDate.getDate() ===
-                  new Date(Date.now()).getTime() ? (
-                    <TimerText>本日開催！</TimerText>
+                  {this.props.openDate.getDate() === new Date(now).getDate() ? (
+                    <SmallTimerText>本日開催！</SmallTimerText>
                   ) : (
                     <TimerText>{diff}日</TimerText>
                   )}
